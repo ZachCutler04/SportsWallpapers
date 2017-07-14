@@ -10,16 +10,25 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var leadConstraint: NSLayoutConstraint!
+    
+    var menuOpen = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func openMenu(_ sender: Any) {
+        if(menuOpen){
+            leadConstraint.constant = -150
+        }
+        else{
+            leadConstraint.constant = 0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+        menuOpen = !menuOpen
     }
-
-
 }
 
