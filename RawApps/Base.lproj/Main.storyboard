@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -69,6 +70,46 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="967.20000000000005" y="776.76161919040487"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="xKV-Ih-plK">
+            <objects>
+                <pageViewController storyboardIdentifier="PageController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="vZq-Ly-8x5" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6YF-3V-ucJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="967" y="1457"/>
+        </scene>
+        <!--Feat View Controller-->
+        <scene sceneID="qYI-mk-I5e">
+            <objects>
+                <viewController storyboardIdentifier="ItemController" id="XRw-gD-1JG" customClass="FeatViewController" customModule="RawApps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iFZ-94-9vc"/>
+                        <viewControllerLayoutGuide type="bottom" id="eg4-Fx-VLG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="u4c-Y5-J0a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-7F-s7I">
+                                <rect key="frame" x="56" y="86" width="262" height="458"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Acw-7F-s7I" firstAttribute="leading" secondItem="u4c-Y5-J0a" secondAttribute="leadingMargin" constant="40" id="LSG-cG-MlW"/>
+                            <constraint firstItem="eg4-Fx-VLG" firstAttribute="top" secondItem="Acw-7F-s7I" secondAttribute="bottom" constant="123" id="gQp-3v-H0e"/>
+                            <constraint firstItem="Acw-7F-s7I" firstAttribute="centerX" secondItem="u4c-Y5-J0a" secondAttribute="centerX" id="h4A-TU-ClS"/>
+                            <constraint firstItem="Acw-7F-s7I" firstAttribute="top" secondItem="iFZ-94-9vc" secondAttribute="bottom" constant="66" id="kh8-cT-iVe"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="FeatImage" destination="Acw-7F-s7I" id="Ico-De-CQb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ywe-oa-rNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1669.5999999999999" y="1456.8215892053975"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="u3m-fu-nim">
