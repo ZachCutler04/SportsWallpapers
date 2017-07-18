@@ -20,6 +20,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        menuSection.layer.shadowOpacity = 1
         createPageViewController()
         setupPageControl()
         self.view .bringSubview(toFront: self.menuSection)
@@ -27,7 +28,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     
     @IBAction func openMenu(_ sender: Any) {
         if(menuOpen){
-            leadConstraint.constant = -150
+            leadConstraint.constant = -160
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.layoutIfNeeded()
             })

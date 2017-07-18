@@ -50,7 +50,7 @@
                         <constraints>
                             <constraint firstItem="f60-Lb-me0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Ek7-IV-vbY"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="f60-Lb-me0" secondAttribute="bottom" id="GVC-cS-FjA"/>
-                            <constraint firstItem="f60-Lb-me0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="-150" id="g1Q-sr-g2p"/>
+                            <constraint firstItem="f60-Lb-me0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="-160" id="g1Q-sr-g2p"/>
                             <constraint firstItem="f60-Lb-me0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="mYz-xR-LWW"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="f60-Lb-me0" secondAttribute="bottom" id="tji-dC-jjv"/>
                             <constraint firstItem="f60-Lb-me0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uuj-Jc-2s6"/>
