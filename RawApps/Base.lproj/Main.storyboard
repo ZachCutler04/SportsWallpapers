@@ -57,7 +57,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Featured" id="d9M-s7-85L">
-                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="m5k-xd-s2d">
+                        <barButtonItem key="leftBarButtonItem" image="Small menu" width="5" id="m5k-xd-s2d">
                             <connections>
                                 <action selector="openMenu:" destination="BYZ-38-t0r" id="JcD-c6-qV0"/>
                             </connections>
@@ -92,8 +92,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-7F-s7I">
-                                <rect key="frame" x="56" y="86" width="262" height="458"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-7F-s7I">
+                                <rect key="frame" x="26" y="54" width="323" height="558"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,7 +125,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Second page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T3C-5l-rXn">
-                                <rect key="frame" x="137" y="51" width="101" height="21"/>
+                                <rect key="frame" x="137" y="72" width="101" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -158,4 +158,7 @@
             <point key="canvasLocation" x="232.80000000000001" y="776.76161919040487"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Small menu" width="44" height="44"/>
+    </resources>
 </document>
