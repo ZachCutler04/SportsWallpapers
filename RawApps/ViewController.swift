@@ -20,6 +20,8 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapClose))
+        view.addGestureRecognizer(tap)
         menuSection.layer.shadowOpacity = 1
         createPageViewController()
         setupPageControl()
@@ -42,6 +44,11 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         menuOpen = !menuOpen
     }
     
+    func tapClose(){
+        if(menuOpen){
+            openMenu(self)
+        }
+    }
     func createPageViewController(){
         let pageController = self.storyboard?.instantiateViewController(withIdentifier: "PageController") as! UIPageViewController
         pageController.dataSource = self
