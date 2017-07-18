@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UIPageViewControllerDataSource {
 
+    @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var leadConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuSection: UIView!
     var menuOpen = false
@@ -20,7 +21,9 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapClose))
+        menuSection.tag = 1
+        backgroundView.tag = 2
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureAction))
         view.addGestureRecognizer(tap)
         menuSection.layer.shadowOpacity = 1
         createPageViewController()
@@ -48,6 +51,16 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         if(menuOpen){
             openMenu(self)
         }
+    }
+    
+    func tapGestureAction(sender: AnyObject){
+        if let tap = sender as? UITapGestureRecognizer{
+            let point = tap.location(in: menuSection)
+            if menuSection.point(inside: point, with: nil) == false {
+                tapClose()
+            }
+        }
+        
     }
     func createPageViewController(){
         let pageController = self.storyboard?.instantiateViewController(withIdentifier: "PageController") as! UIPageViewController

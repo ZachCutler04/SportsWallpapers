@@ -64,6 +64,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backgroundView" destination="8bC-Xf-vdC" id="cNm-4T-1y9"/>
                         <outlet property="leadConstraint" destination="g1Q-sr-g2p" id="OT2-2e-BJ8"/>
                         <outlet property="menuSection" destination="f60-Lb-me0" id="CTC-NP-eMJ"/>
                     </connections>
