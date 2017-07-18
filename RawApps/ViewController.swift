@@ -28,8 +28,8 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         menuSection.layer.shadowOpacity = 1
         createPageViewController()
         setupPageControl()
-        self.view .bringSubview(toFront: self.menuSection)
         self.view.bringSubview(toFront: featLabel)
+        self.view .bringSubview(toFront: self.menuSection)
     }
     
     @IBAction func openMenu(_ sender: Any) {
