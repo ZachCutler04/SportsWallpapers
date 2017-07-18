@@ -28,6 +28,9 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     @IBAction func openMenu(_ sender: Any) {
         if(menuOpen){
             leadConstraint.constant = -150
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            })
         }
         else{
             leadConstraint.constant = 0

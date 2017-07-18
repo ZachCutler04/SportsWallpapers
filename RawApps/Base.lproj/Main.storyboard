@@ -92,16 +92,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-7F-s7I">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-7F-s7I">
                                 <rect key="frame" x="26" y="54" width="323" height="558"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Acw-7F-s7I" firstAttribute="leading" secondItem="u4c-Y5-J0a" secondAttribute="leadingMargin" constant="40" id="LSG-cG-MlW"/>
-                            <constraint firstItem="eg4-Fx-VLG" firstAttribute="top" secondItem="Acw-7F-s7I" secondAttribute="bottom" constant="123" id="gQp-3v-H0e"/>
-                            <constraint firstItem="Acw-7F-s7I" firstAttribute="centerX" secondItem="u4c-Y5-J0a" secondAttribute="centerX" id="h4A-TU-ClS"/>
-                            <constraint firstItem="Acw-7F-s7I" firstAttribute="top" secondItem="iFZ-94-9vc" secondAttribute="bottom" constant="66" id="kh8-cT-iVe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Acw-7F-s7I" secondAttribute="trailing" constant="10" id="4vJ-Jh-Yz0"/>
+                            <constraint firstItem="Acw-7F-s7I" firstAttribute="leading" secondItem="u4c-Y5-J0a" secondAttribute="leadingMargin" constant="10" id="Ka0-kB-OUn"/>
+                            <constraint firstItem="eg4-Fx-VLG" firstAttribute="top" secondItem="Acw-7F-s7I" secondAttribute="bottom" constant="55" id="bwM-5H-dd2"/>
+                            <constraint firstItem="Acw-7F-s7I" firstAttribute="top" secondItem="iFZ-94-9vc" secondAttribute="bottom" constant="34" id="zlr-V9-p6X"/>
                         </constraints>
                     </view>
                     <connections>
