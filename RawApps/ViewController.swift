@@ -13,9 +13,9 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var leadConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuSection: UIView!
+    @IBOutlet weak var featLabel: UILabel!
     var menuOpen = false
     var pageViewController: UIPageViewController?
-    
 
     let images = ["Demo_pic_1", "Demo_pic_2", "Demo_pic_3", "Demo_pic_4"]
     
@@ -29,6 +29,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         createPageViewController()
         setupPageControl()
         self.view .bringSubview(toFront: self.menuSection)
+        self.view.bringSubview(toFront: featLabel)
     }
     
     @IBAction func openMenu(_ sender: Any) {

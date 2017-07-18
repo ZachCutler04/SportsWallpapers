@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Featured-->
+        <!--Sports Wallpapers-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="RootController" id="BYZ-38-t0r" customClass="ViewController" customModule="RawApps" customModuleProvider="target" sceneMemberID="viewController">
@@ -45,6 +45,15 @@
                                     <constraint firstAttribute="trailing" secondItem="6qv-Kz-4Dk" secondAttribute="trailing" constant="8" id="qBc-rK-42y"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Featured" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ud7-La-I8O">
+                                <rect key="frame" x="113" y="133" width="149" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="27"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="-1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -56,15 +65,17 @@
                             <constraint firstItem="f60-Lb-me0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uuj-Jc-2s6"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Featured" id="d9M-s7-85L">
+                    <navigationItem key="navigationItem" title="Sports Wallpapers" id="d9M-s7-85L">
                         <barButtonItem key="leftBarButtonItem" image="Small menu" width="5" id="m5k-xd-s2d">
                             <connections>
                                 <action selector="openMenu:" destination="BYZ-38-t0r" id="JcD-c6-qV0"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="small settings" id="Hsc-TP-0Qu"/>
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundView" destination="8bC-Xf-vdC" id="cNm-4T-1y9"/>
+                        <outlet property="featLabel" destination="ud7-La-I8O" id="4UR-PV-pKT"/>
                         <outlet property="leadConstraint" destination="g1Q-sr-g2p" id="OT2-2e-BJ8"/>
                         <outlet property="menuSection" destination="f60-Lb-me0" id="CTC-NP-eMJ"/>
                     </connections>
@@ -158,8 +169,16 @@
             </objects>
             <point key="canvasLocation" x="232.80000000000001" y="776.76161919040487"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="DMc-ag-CqK">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="bVR-FX-L47" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qw3-HV-Uqx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="Small menu" width="44" height="44"/>
+        <image name="small settings" width="42" height="42"/>
     </resources>
 </document>
