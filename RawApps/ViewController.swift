@@ -11,16 +11,18 @@ import UIKit
 class ViewController: UIViewController, UIPageViewControllerDataSource {
 
     @IBOutlet weak var leadConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var menuSection: UIView!
     var menuOpen = false
     var pageViewController: UIPageViewController?
     
+
     let images = ["Demo_pic_1", "Demo_pic_2", "Demo_pic_3", "Demo_pic_4"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createPageViewController()
         setupPageControl()
+        self.view .bringSubview(toFront: self.menuSection)
     }
     
     @IBAction func openMenu(_ sender: Any) {
