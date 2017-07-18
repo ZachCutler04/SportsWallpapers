@@ -90,7 +90,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         if itemController.itemIndex > 0 {
             return getItemController(itemController.itemIndex-1)
         }
-        return nil
+        return getItemController(images.count - 1)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -99,7 +99,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         if itemController.itemIndex + 1 < images.count {
             return getItemController(itemController.itemIndex+1)
         }
-        return nil
+        return getItemController(0)
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
