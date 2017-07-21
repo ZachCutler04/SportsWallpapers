@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseStorage
 
 class ViewController: UIViewController, UIPageViewControllerDataSource {
 
@@ -14,10 +17,12 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     @IBOutlet weak var leadConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuSection: UIView!
     @IBOutlet weak var featLabel: UILabel!
+    
     var menuOpen = false
     var pageViewController: UIPageViewController?
-
-    let images = ["Demo_pic_1", "Demo_pic_2", "Demo_pic_3", "Demo_pic_4"]
+    var ref: DatabaseReference!
+    
+    var images = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +69,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         
     }
     func createPageViewController(){
+        setFeatImages()
         let pageController = self.storyboard?.instantiateViewController(withIdentifier: "PageController") as! UIPageViewController
         pageController.dataSource = self
         if images.count > 0{
@@ -132,11 +138,20 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
             let pageItemController = self.storyboard?.instantiateViewController(withIdentifier: "ItemController") as! FeatViewController
             
             pageItemController.itemIndex = itemIndex
-            pageItemController.imageName = images[itemIndex]
+            pageItemController.imageName = "cool"
             return pageItemController
         }
         
         return nil
+    }
+    
+    func setFeatImages(){
+        ref = Database.database().reference()
+        ref.observe(.value, with: { snapshot in
+            for child in snapshot.children {
+                self.images.append(child as! UIImage)
+            }
+        })
     }
 }
 
