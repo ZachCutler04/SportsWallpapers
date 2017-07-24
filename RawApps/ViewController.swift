@@ -21,9 +21,11 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     var menuOpen = false
     var pageViewController: UIPageViewController?
     var ref: DatabaseReference!
-    
+	let storage = Storage.storage()
+	
+	
     var images = [UIImage]()
-    
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         menuSection.tag = 1
@@ -31,13 +33,32 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureAction))
         view.addGestureRecognizer(tap)
         menuSection.layer.shadowOpacity = 1
-        createPageViewController()
+		ref = Database.database().reference()
+		self.setFeatImages{() -> () in
+			self.createPageViewController()
+			}
         setupPageControl()
         self.view.bringSubview(toFront: featLabel)
         self.view .bringSubview(toFront: self.menuSection)
     }
-    
-    @IBAction func openMenu(_ sender: Any) {
+	
+	func setFeatImages(handleComplete:(()->())){
+		
+		let featuredRef = ref.child("Featured").child("1")
+		featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+			
+			let dbString = (snapshot.value as! String).description
+			
+			if let url = NSURL(string: dbString) {
+				if let data = NSData(contentsOf: url as URL) {
+					self.images.append(UIImage(data: data as Data)!)
+				}
+			}
+		})
+		handleComplete()
+	}
+	
+    @IBAction func openMenu(_ sender: Any ) {
         if(menuOpen){
             leadConstraint.constant = -160
             UIView.animate(withDuration: 0.3, animations: {
@@ -69,10 +90,9 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         
     }
     func createPageViewController(){
-        setFeatImages()
         let pageController = self.storyboard?.instantiateViewController(withIdentifier: "PageController") as! UIPageViewController
         pageController.dataSource = self
-        if images.count > 0{
+        if self.images.count > 0{
             let firstController = getItemController(0)!
             let startingViewControllers = [firstController]
             pageController.setViewControllers(startingViewControllers, direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
@@ -92,19 +112,19 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let itemController = viewController as! FeatViewController
+        let ItemController = viewController as! FeatViewController
         
-        if itemController.itemIndex > 0 {
-            return getItemController(itemController.itemIndex-1)
+        if ItemController.itemIndex > 0 {
+            return getItemController(ItemController.itemIndex-1)
         }
         return getItemController(images.count - 1)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let itemController = viewController as! FeatViewController
+        let ItemController = viewController as! FeatViewController
         
-        if itemController.itemIndex + 1 < images.count {
-            return getItemController(itemController.itemIndex+1)
+        if ItemController.itemIndex + 1 < images.count {
+            return getItemController(ItemController.itemIndex+1)
         }
         return getItemController(0)
     }
@@ -143,15 +163,6 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         }
         
         return nil
-    }
-    
-    func setFeatImages(){
-        ref = Database.database().reference()
-        ref.observe(.value, with: { snapshot in
-            for child in snapshot.children {
-                self.images.append(child as! UIImage)
-            }
-        })
     }
 }
 
