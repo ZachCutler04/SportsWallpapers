@@ -38,24 +38,24 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 			self.createPageViewController()
 			}
         setupPageControl()
-        self.view.bringSubview(toFront: featLabel)
-        self.view .bringSubview(toFront: self.menuSection)
     }
 	
-	func setFeatImages(handleComplete:(()->())){
+	func setFeatImages(handleComplete:@escaping (()->())){
 		
-		let featuredRef = ref.child("Featured").child("1")
+		let featuredRef = ref.child("Featured")
 		featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+			for rest in snapshot.children.allObjects as! [DataSnapshot]{
+				let dbString = (rest.value as! String).description
 			
-			let dbString = (snapshot.value as! String).description
-			
-			if let url = NSURL(string: dbString) {
-				if let data = NSData(contentsOf: url as URL) {
-					self.images.append(UIImage(data: data as Data)!)
+				if let url = NSURL(string: dbString) {
+					if let data = NSData(contentsOf: url as URL) {
+						self.images.append(UIImage(data: data as Data)!)
+						
+					}
 				}
 			}
+			handleComplete()
 		})
-		handleComplete()
 	}
 	
     @IBAction func openMenu(_ sender: Any ) {
@@ -101,7 +101,8 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         addChildViewController(pageViewController!)
         self.view.addSubview(pageViewController!.view)
         pageViewController!.didMove(toParentViewController: self)
-        
+		self.view.bringSubview(toFront: featLabel)
+		self.view .bringSubview(toFront: self.menuSection)
     }
     
     func setupPageControl(){
@@ -158,7 +159,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
             let pageItemController = self.storyboard?.instantiateViewController(withIdentifier: "ItemController") as! FeatViewController
             
             pageItemController.itemIndex = itemIndex
-            pageItemController.imageName = "cool"
+            pageItemController.image = images[itemIndex]
             return pageItemController
         }
         

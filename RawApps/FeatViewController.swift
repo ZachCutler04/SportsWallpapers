@@ -10,18 +10,14 @@ import UIKit
 
 class FeatViewController: UIViewController {
     
-    
-    var itemIndex: Int = 0
-    var imageName: String = ""{
-     
+    var image: UIImage? = nil {
         didSet{
             if let imageView = featImage{
-                imageView.image = UIImage(named: imageName)
+                imageView.image = image
             }
         }
-        
     }
-    
+    var itemIndex: Int = 0
     
     
     @IBOutlet weak var featImage: UIImageView!
@@ -29,7 +25,7 @@ class FeatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        featImage.image = UIImage(named: imageName)
+        featImage.image = image
         
     }
 
