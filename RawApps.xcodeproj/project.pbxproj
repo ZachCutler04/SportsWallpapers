@@ -17,6 +17,7 @@
 		92D60CD61F1842920084A45F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92D60CD41F1842920084A45F /* LaunchScreen.storyboard */; };
 		92D60CE11F1842920084A45F /* RawAppsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D60CE01F1842920084A45F /* RawAppsTests.swift */; };
 		92D60CEC1F1B1BD90084A45F /* FeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D60CEB1F1B1BD90084A45F /* FeatViewController.swift */; };
+		92DEB7271F287F62003E8923 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DEB7261F287F62003E8923 /* ListViewController.swift */; };
 		E38D6A6C0DB23D9F8D49FB45 /* Pods_RawAppsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D058F588F664786F59FF323 /* Pods_RawAppsTests.framework */; };
 		F0F8275C4DAC386441C07217 /* Pods_RawApps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A9AB7522ECBB718B50D15A /* Pods_RawApps.framework */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		92D60CE01F1842920084A45F /* RawAppsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawAppsTests.swift; sourceTree = "<group>"; };
 		92D60CE21F1842920084A45F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92D60CEB1F1B1BD90084A45F /* FeatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatViewController.swift; sourceTree = "<group>"; };
+		92DEB7261F287F62003E8923 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		9D058F588F664786F59FF323 /* Pods_RawAppsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RawAppsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C0D648FAFD0FD1DC09E1B3 /* Pods-RawAppsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RawAppsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RawAppsTests/Pods-RawAppsTests.release.xcconfig"; sourceTree = "<group>"; };
 		BB3EF34A12B99018A92A0955 /* Pods-RawApps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RawApps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RawApps/Pods-RawApps.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				92D60CCB1F1842920084A45F /* AppDelegate.swift */,
 				92D60CCD1F1842920084A45F /* ViewController.swift */,
+				92DEB7261F287F62003E8923 /* ListViewController.swift */,
 				92D60CCF1F1842920084A45F /* Main.storyboard */,
 				92D60CD21F1842920084A45F /* Assets.xcassets */,
 				92D60CD41F1842920084A45F /* LaunchScreen.storyboard */,
@@ -345,6 +348,7 @@
 			files = (
 				92D60CCE1F1842920084A45F /* ViewController.swift in Sources */,
 				92D60CEC1F1B1BD90084A45F /* FeatViewController.swift in Sources */,
+				92DEB7271F287F62003E8923 /* ListViewController.swift in Sources */,
 				92D60CCC1F1842920084A45F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

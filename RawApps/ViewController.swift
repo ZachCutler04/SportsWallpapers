@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseStorage
+import Photos
 
 class ViewController: UIViewController, UIPageViewControllerDataSource {
 
@@ -40,7 +41,24 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         setupPageControl()
     }
 	
-	func setFeatImages(handleComplete:@escaping (()->())){
+    
+    @IBAction func playersClick(_ sender: Any) {
+        let featuredRef = ref.child("Players")
+        var playerArr = [String]()
+        featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            for rest in snapshot.children as! [DataSnapshot]{
+                playerArr.append(rest.key)
+            }
+        })
+        
+        let listController = self.storyboard?.instantiateViewController(withIdentifier: "ListController") as! ListViewController
+        listController.playerList = playerArr
+		
+        
+        
+    }
+    
+    func setFeatImages(handleComplete: @escaping (()->())){
 		
 		let featuredRef = ref.child("Featured")
 		featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
