@@ -22,6 +22,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     var menuOpen = false
     var pageViewController: UIPageViewController?
     var ref: DatabaseReference!
+    var playerTeamArr = [String]()
 	let storage = Storage.storage()
 	
 	
@@ -44,18 +45,52 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     
     @IBAction func playersClick(_ sender: Any) {
         let featuredRef = ref.child("Players")
-        var playerArr = [String]()
+        var playersArr = [String]()
         featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            for rest in snapshot.children as! [DataSnapshot]{
-                playerArr.append(rest.key)
+            for child in snapshot.children{
+                playersArr.append((child as AnyObject).key)
             }
+            self.playerTeamArr = playersArr
+            self.performSegue(withIdentifier: "PlayerSegue", sender: self)
         })
-        
-        let listController = self.storyboard?.instantiateViewController(withIdentifier: "ListController") as! ListViewController
-        listController.playerList = playerArr
-		
-        
-        
+    }
+
+    @IBAction func teamsClick(_ sender: Any) {
+        let featuredRef = ref.child("Teams")
+        var teamsArr = [String]()
+        featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            for child in snapshot.children{
+                teamsArr.append((child as AnyObject).key)
+            }
+            self.playerTeamArr = teamsArr
+            self.performSegue(withIdentifier: "TeamsSegue", sender: self)
+        })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "PlayerSegue"{
+			let featuredRef = ref.child("Players")
+			var playersArr = [String]()
+			featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+				for child in snapshot.children{
+					playersArr.append((child as AnyObject).key)
+				}
+				self.playerTeamArr = playersArr
+				let controller = segue.destination as! ListViewController
+				controller.playerTeamList = self.playerTeamArr			})
+		}
+			
+		else if segue.identifier == "TeamsSegue"{
+			let featuredRef = ref.child("Teams")
+			var teamsArr = [String]()
+			featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+				for child in snapshot.children{
+					teamsArr.append((child as AnyObject).key)
+				}
+				self.playerTeamArr = teamsArr
+				let controller = segue.destination as! ListViewController
+				controller.playerTeamList = self.playerTeamArr			})
+		}
     }
     
     func setFeatImages(handleComplete: @escaping (()->())){

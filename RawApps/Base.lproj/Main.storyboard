@@ -46,12 +46,24 @@
                                             <segue destination="FrR-dk-hrb" kind="show" identifier="PlayerSegue" id="P58-3o-CBj"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="InA-bB-eRS">
+                                        <rect key="frame" x="8" y="46" width="134" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Teams"/>
+                                        <connections>
+                                            <action selector="teamsClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c2P-TW-xjW"/>
+                                            <segue destination="FrR-dk-hrb" kind="show" identifier="TeamsSegue" id="fcH-48-nt8"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="InA-bB-eRS" secondAttribute="trailing" constant="8" id="1I1-ec-utQ"/>
                                     <constraint firstItem="6qv-Kz-4Dk" firstAttribute="top" secondItem="f60-Lb-me0" secondAttribute="top" constant="8" id="2pV-3O-Q35"/>
+                                    <constraint firstItem="InA-bB-eRS" firstAttribute="top" secondItem="6qv-Kz-4Dk" secondAttribute="bottom" constant="8" id="M7g-cA-yX6"/>
                                     <constraint firstItem="6qv-Kz-4Dk" firstAttribute="leading" secondItem="f60-Lb-me0" secondAttribute="leading" constant="8" id="N9e-V7-0LO"/>
                                     <constraint firstAttribute="width" constant="150" id="aUn-ob-wtL"/>
+                                    <constraint firstItem="InA-bB-eRS" firstAttribute="leading" secondItem="f60-Lb-me0" secondAttribute="leading" constant="8" id="f3A-tA-Mkc"/>
                                     <constraint firstAttribute="trailing" secondItem="6qv-Kz-4Dk" secondAttribute="trailing" constant="8" id="qBc-rK-42y"/>
                                 </constraints>
                             </view>
@@ -101,9 +113,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bK-Ff-3hr">
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bK-Ff-3hr" userLabel="Button">
                                             <rect key="frame" x="117" y="0.0" width="141" height="42"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="Button"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <state key="normal" title="Player Name"/>
                                         </button>
@@ -117,6 +130,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="button" destination="0bK-Ff-3hr" id="jIi-1A-5Os"/>
                         <outlet property="myTableViewCells" destination="zce-6E-sXC" id="FOq-Ye-dmx"/>
                         <outlet property="tableView" destination="zce-6E-sXC" id="3VQ-jJ-zwk"/>
                     </connections>
@@ -188,4 +202,7 @@
         <image name="Small menu" width="44" height="44"/>
         <image name="small settings" width="42" height="42"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="P58-3o-CBj"/>
+    </inferredMetricsTieBreakers>
 </document>
