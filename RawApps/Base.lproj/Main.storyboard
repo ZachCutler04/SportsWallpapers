@@ -110,29 +110,21 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TeN-m4-iD3" id="cFX-pH-act">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bK-Ff-3hr" userLabel="Button">
-                                            <rect key="frame" x="117" y="0.0" width="141" height="42"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <accessibility key="accessibilityConfiguration" identifier="Button"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                            <state key="normal" title="Player Name"/>
-                                        </button>
-                                    </subviews>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" identifier="MyCell">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="FrR-dk-hrb" id="m0F-S0-7yp"/>
-                            <outlet property="delegate" destination="FrR-dk-hrb" id="ih2-Df-JD1"/>
+                            <outlet property="dataSource" destination="FrR-dk-hrb" id="tSE-oc-KIY"/>
+                            <outlet property="delegate" destination="FrR-dk-hrb" id="wJr-41-hwG"/>
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="button" destination="0bK-Ff-3hr" id="jIi-1A-5Os"/>
-                        <outlet property="myTableViewCells" destination="zce-6E-sXC" id="FOq-Ye-dmx"/>
-                        <outlet property="tableView" destination="zce-6E-sXC" id="3VQ-jJ-zwk"/>
+                        <outlet property="myTableView" destination="zce-6E-sXC" id="zYG-JI-Qvv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hzD-3N-pXu" userLabel="First Responder" sceneMemberID="firstResponder"/>

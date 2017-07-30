@@ -51,7 +51,6 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
                 playersArr.append((child as AnyObject).key)
             }
             self.playerTeamArr = playersArr
-            self.performSegue(withIdentifier: "PlayerSegue", sender: self)
         })
     }
 
@@ -63,7 +62,6 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
                 teamsArr.append((child as AnyObject).key)
             }
             self.playerTeamArr = teamsArr
-            self.performSegue(withIdentifier: "TeamsSegue", sender: self)
         })
     }
     
@@ -77,7 +75,9 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 				}
 				self.playerTeamArr = playersArr
 				let controller = segue.destination as! ListViewController
-				controller.playerTeamList = self.playerTeamArr			})
+				controller.playerTeamList = self.playerTeamArr
+				controller.myTableView.reloadData()
+			})
 		}
 			
 		else if segue.identifier == "TeamsSegue"{
@@ -89,7 +89,9 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 				}
 				self.playerTeamArr = teamsArr
 				let controller = segue.destination as! ListViewController
-				controller.playerTeamList = self.playerTeamArr			})
+				controller.playerTeamList = self.playerTeamArr
+				controller.myTableView.reloadData()
+			})
 		}
     }
     

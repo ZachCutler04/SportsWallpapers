@@ -13,36 +13,29 @@ import FirebaseDatabase
 import FirebaseStorage
 
 class ListViewController: UITableViewController {
-    
-    @IBOutlet weak var button: UIButton!
-    @IBOutlet var myTableViewCells: UITableView!
 
     var playerTeamList = [String]()
     
+    @IBOutlet var myTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        myTableViewCells = UITableView()
-        myTableViewCells.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
-        myTableViewCells.dataSource = self
-        myTableViewCells.delegate = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        self.clearCells()
-        self.myTableViewCells.reloadData()
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
     }
     
     func clearCells(){
-        for cells in myTableViewCells.visibleCells {
+        for cells in myTableView.visibleCells {
             cells.delete(self)
         }
     }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for:indexPath as IndexPath)
-        cell.contentView.button = playerTeamList[indexPath.row]
-        return cell
+        let thisCell = tableView.dequeueReusableCell(withIdentifier: "MyCell")
+        thisCell?.textLabel?.text = playerTeamList[indexPath.row]
+        return thisCell!
     }
     
-    cla
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.playerTeamList.count;
+    }
 }
