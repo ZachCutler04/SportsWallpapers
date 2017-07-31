@@ -7,25 +7,27 @@
 //
 
 import UIKit
+import PhotosUI
+import Photos
 
 class FeatViewController: UIViewController {
     
-    var image: UIImage? = nil {
+    var image: PHLivePhoto? = nil {
         didSet{
             if let imageView = featImage{
-                imageView.image = image
+                imageView.livePhoto = image
             }
         }
     }
     var itemIndex: Int = 0
     
     
-    @IBOutlet weak var featImage: UIImageView!
+    @IBOutlet weak var featImage: PHLivePhotoView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        featImage.image = image
+        featImage.livePhoto = image
         
     }
 

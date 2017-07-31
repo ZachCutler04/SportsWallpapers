@@ -11,6 +11,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 import Photos
+import PhotosUI
 
 class ViewController: UIViewController, UIPageViewControllerDataSource {
 
@@ -25,8 +26,8 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     var playerTeamArr = [String]()
 	let storage = Storage.storage()
 	
-	
-    var images = [UIImage]()
+	var featImagesUIPhotos = [UIImage]()
+    var featImages = [PHLivePhoto]()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,19 +99,36 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     func setFeatImages(handleComplete: @escaping (()->())){
 		
 		let featuredRef = ref.child("Featured")
+		let featuredRef2 = ref.child("FeaturedMov")
 		featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
 			for rest in snapshot.children.allObjects as! [DataSnapshot]{
 				let dbString = (rest.value as! String).description
 			
 				if let url = NSURL(string: dbString) {
 					if let data = NSData(contentsOf: url as URL) {
-						self.images.append(UIImage(data: data as Data)!)
-						
+						self.featImagesUIPhotos.append(UIImage(data: data as Data)!)
 					}
 				}
 			}
-			handleComplete()
+			featuredRef2.observeSingleEvent(of: .value, with: { (snapshot) in
+				for rest in snapshot.children.allObjects as! [DataSnapshot]{
+					let dbString = (rest.value as! String).description
+					
+					if let url = NSURL(string: dbString) {
+						if let data = NSData(contentsOf: url as URL) {
+							self.featImagesUIPhotos.append(UIImage(data: data as Data)!)
+						}
+					}
+				}
+			})
 		})
+	}
+	
+	private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage) {
+		PHLivePhoto.request(withResourceFileURLs: [imageURL as URL, videoURL as URL], placeholderImage: previewImage, targetSize: CGSize.zero, contentMode: .aspectFit) {
+			(livePhoto, infoDict) -> Void in
+			self.featImages.append(livePhoto!)
+		}
 	}
 	
     @IBAction func openMenu(_ sender: Any ) {
@@ -147,14 +165,15 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     func createPageViewController(){
         let pageController = self.storyboard?.instantiateViewController(withIdentifier: "PageController") as! UIPageViewController
         pageController.dataSource = self
-        if self.images.count > 0{
+        if self.featImages.count > 0{
             let firstController = getItemController(0)!
             let startingViewControllers = [firstController]
             pageController.setViewControllers(startingViewControllers, direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
         }
         pageViewController = pageController
         addChildViewController(pageViewController!)
-        self.view.addSubview(pageViewController!.view)
+		
+		self.view.addSubview(pageViewController!.view)
         pageViewController!.didMove(toParentViewController: self)
 		self.view.bringSubview(toFront: featLabel)
 		self.view .bringSubview(toFront: self.menuSection)
@@ -173,20 +192,20 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         if ItemController.itemIndex > 0 {
             return getItemController(ItemController.itemIndex-1)
         }
-        return getItemController(images.count - 1)
+        return getItemController(featImages.count - 1)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let ItemController = viewController as! FeatViewController
         
-        if ItemController.itemIndex + 1 < images.count {
+        if ItemController.itemIndex + 1 < featImages.count {
             return getItemController(ItemController.itemIndex+1)
         }
         return getItemController(0)
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return images.count
+        return featImages.count
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
@@ -210,11 +229,11 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     }
     
     func getItemController(_ itemIndex: Int) -> FeatViewController? {
-        if itemIndex < images.count {
+        if itemIndex < featImages.count {
             let pageItemController = self.storyboard?.instantiateViewController(withIdentifier: "ItemController") as! FeatViewController
             
             pageItemController.itemIndex = itemIndex
-            pageItemController.image = images[itemIndex]
+            pageItemController.image = featImages[itemIndex]
             return pageItemController
         }
         
