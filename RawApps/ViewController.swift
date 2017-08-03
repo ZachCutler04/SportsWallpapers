@@ -113,25 +113,29 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 			}
 			featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
 				for rest in snapshot2.children.allObjects as! [DataSnapshot]{
+					let maxCounter = snapshot2.childrenCount
 					var counter = 0
 					let dbString = (rest.value as! String).description
 					if let url = NSURL(string: dbString) {
-						self.makeLivePhotoFromItems(imageURL: self.featURL[counter], videoURL: url, previewImage: self.featImagesUIPhotos[counter]) {() -> () in
-							handleComplete()
+						self.makeLivePhotoFromItems(imageURL: self.featURL[counter], videoURL: url, previewImage: self.featImagesUIPhotos[counter]) { (livePhoto) in
+							self.featImages.append(livePhoto)
+							counter += 1
+							if maxCounter == UInt(counter) {
+								handleComplete()
+							}
 						}
-						counter += 1
 					}
 				}
 			})
 		})
 	}
 	
-	private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage, handleComplete: @escaping (()->())) {
+	private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage, completion: @escaping (_ livePhoto: PHLivePhoto) -> Void) {
 		PHLivePhoto.request(withResourceFileURLs: [imageURL as URL, videoURL as URL], placeholderImage: previewImage, targetSize: CGSize.zero, contentMode: .aspectFit) {
 			(livePhoto, infoDict) -> Void in
-			let livePhoto = livePhoto
-			self.featImages.append(livePhoto!)
-			handleComplete()
+			if let lp = livePhoto {
+				completion(lp)
+			}
 		}
 	}
 	
@@ -180,7 +184,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 		self.view.addSubview(pageViewController!.view)
         pageViewController!.didMove(toParentViewController: self)
 		self.view.bringSubview(toFront: featLabel)
-		self.view .bringSubview(toFront: self.menuSection)
+		self.view.bringSubview(toFront: self.menuSection)
     }
     
     func setupPageControl(){

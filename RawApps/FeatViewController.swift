@@ -21,6 +21,8 @@ class FeatViewController: UIViewController {
     }
     var itemIndex: Int = 0
 
+    @IBOutlet weak var featImage: PHLivePhotoView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

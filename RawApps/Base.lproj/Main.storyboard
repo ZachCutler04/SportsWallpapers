@@ -151,7 +151,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-7F-s7I">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-7F-s7I" customClass="PHLivePhotoView">
                                 <rect key="frame" x="26" y="54" width="323" height="558"/>
                             </imageView>
                         </subviews>
@@ -163,6 +163,9 @@
                             <constraint firstItem="Acw-7F-s7I" firstAttribute="top" secondItem="iFZ-94-9vc" secondAttribute="bottom" constant="34" id="zlr-V9-p6X"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="featImage" destination="Acw-7F-s7I" id="QH8-Ly-tlR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ywe-oa-rNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
