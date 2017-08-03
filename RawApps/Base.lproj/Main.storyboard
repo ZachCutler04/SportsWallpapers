@@ -110,7 +110,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TeN-m4-iD3" id="cFX-pH-act">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration" identifier="MyCell">
@@ -163,9 +163,6 @@
                             <constraint firstItem="Acw-7F-s7I" firstAttribute="top" secondItem="iFZ-94-9vc" secondAttribute="bottom" constant="34" id="zlr-V9-p6X"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="FeatImage" destination="Acw-7F-s7I" id="Ico-De-CQb"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ywe-oa-rNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

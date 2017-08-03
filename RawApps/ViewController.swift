@@ -28,6 +28,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 	
 	var featImagesUIPhotos = [UIImage]()
     var featImages = [PHLivePhoto]()
+	var featURL = [NSURL]()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,31 +104,34 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 		featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
 			for rest in snapshot.children.allObjects as! [DataSnapshot]{
 				let dbString = (rest.value as! String).description
-			
 				if let url = NSURL(string: dbString) {
+					self.featURL.append(url)
 					if let data = NSData(contentsOf: url as URL) {
 						self.featImagesUIPhotos.append(UIImage(data: data as Data)!)
 					}
 				}
 			}
-			featuredRef2.observeSingleEvent(of: .value, with: { (snapshot) in
-				for rest in snapshot.children.allObjects as! [DataSnapshot]{
+			featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
+				for rest in snapshot2.children.allObjects as! [DataSnapshot]{
+					var counter = 0
 					let dbString = (rest.value as! String).description
-					
 					if let url = NSURL(string: dbString) {
-						if let data = NSData(contentsOf: url as URL) {
-							self.featImagesUIPhotos.append(UIImage(data: data as Data)!)
+						self.makeLivePhotoFromItems(imageURL: self.featURL[counter], videoURL: url, previewImage: self.featImagesUIPhotos[counter]) {() -> () in
+							handleComplete()
 						}
+						counter += 1
 					}
 				}
 			})
 		})
 	}
 	
-	private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage) {
+	private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage, handleComplete: @escaping (()->())) {
 		PHLivePhoto.request(withResourceFileURLs: [imageURL as URL, videoURL as URL], placeholderImage: previewImage, targetSize: CGSize.zero, contentMode: .aspectFit) {
 			(livePhoto, infoDict) -> Void in
+			let livePhoto = livePhoto
 			self.featImages.append(livePhoto!)
+			handleComplete()
 		}
 	}
 	
