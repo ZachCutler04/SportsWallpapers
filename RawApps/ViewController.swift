@@ -118,7 +118,9 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 					let dbString = (rest.value as! String).description
 					if let url = NSURL(string: dbString) {
 						self.makeLivePhotoFromItems(imageURL: self.featURL[counter], videoURL: url, previewImage: self.featImagesUIPhotos[counter]) { (livePhoto) in
-							self.featImages.append(livePhoto)
+							if UInt(counter) < maxCounter {
+								self.featImages.append(livePhoto)
+							}
 							counter += 1
 							if maxCounter == UInt(counter) {
 								handleComplete()
