@@ -12,15 +12,17 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 
-class ListViewController: UITableViewController {
+class ListViewController: UITableViewController{
 
     var playerTeamList = [String]()
     
-    @IBOutlet var myTableView: UITableView!
+    @IBOutlet weak var myTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        myTableView.dataSource = self
+        myTableView.delegate = self
     }
     
     func clearCells(){
@@ -37,5 +39,9 @@ class ListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.playerTeamList.count;
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "Cells", sender: self)
     }
 }

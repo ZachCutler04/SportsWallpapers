@@ -13,8 +13,9 @@ import FirebaseStorage
 import Photos
 import PhotosUI
 
-class ViewController: UIViewController, UIPageViewControllerDataSource {
+class ViewController: UIViewController, UIPageViewControllerDataSource, UISearchBarDelegate {
 
+	@IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var leadConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuSection: UIView!
@@ -29,9 +30,12 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
 	var featImagesUIPhotos = [UIImage]()
     var featImages = [PHLivePhoto]()
 	var featURL = [NSURL]()
+	var searchClicked = false
+	var searchInputText = ""
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		searchBar.delegate = self
         menuSection.tag = 1
         backgroundView.tag = 2
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureAction))
@@ -44,16 +48,42 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         setupPageControl()
     }
 	
-    
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		self.searchInputText = searchBar.text!
+		self.searchClicked = true
+		performSegue(withIdentifier: "PlayerSegue", sender: self)
+	}
+	
     @IBAction func playersClick(_ sender: Any) {
-        let featuredRef = ref.child("Players")
-        var playersArr = [String]()
-        featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children{
-                playersArr.append((child as AnyObject).key)
-            }
-            self.playerTeamArr = playersArr
-        })
+		if(searchClicked == true){
+			let featuredRef = ref.child("Players")
+			let featuredRef2 = ref.child("Teams")
+			var playersTeamsArr = [String]()
+			featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+				for child in snapshot.children{
+					playersTeamsArr.append((child as AnyObject).key)
+				}
+			})
+			featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
+				for child2 in snapshot2.children{
+					if(((child2 as AnyObject)).key.contains(self.searchInputText)){
+						playersTeamsArr.append((child2 as AnyObject).key)
+					}
+				}
+			})
+			self.playerTeamArr = playersTeamsArr
+			self.searchClicked = false
+		}
+		else{
+			let featuredRef = ref.child("Players")
+			var playersArr = [String]()
+			featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+				for child in snapshot.children{
+					playersArr.append((child as AnyObject).key)
+				}
+				self.playerTeamArr = playersArr
+			})
+		}
     }
 
     @IBAction func teamsClick(_ sender: Any) {
@@ -69,17 +99,44 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "PlayerSegue"{
-			let featuredRef = ref.child("Players")
-			var playersArr = [String]()
-			featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
-				for child in snapshot.children{
-					playersArr.append((child as AnyObject).key)
-				}
-				self.playerTeamArr = playersArr
-				let controller = segue.destination as! ListViewController
-				controller.playerTeamList = self.playerTeamArr
-				controller.myTableView.reloadData()
-			})
+			if(self.searchClicked == true){
+				let featuredRef = ref.child("Players")
+				let featuredRef2 = ref.child("Teams")
+				var playersTeamsArr = [String]()
+				featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+					for child in snapshot.children{
+						if(((child as AnyObject)).key.lowercased().contains(self.searchInputText.lowercased())){
+							playersTeamsArr.append((child as AnyObject).key)
+						}
+					}
+				})
+				featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
+					for child2 in snapshot2.children{
+						if(((child2 as AnyObject)).key.contains(self.searchInputText)){
+							playersTeamsArr.append((child2 as AnyObject).key)
+						}
+					}
+					self.playerTeamArr = playersTeamsArr
+					self.searchClicked = false
+					let controller = segue.destination as! ListViewController
+					controller.playerTeamList = self.playerTeamArr
+					controller.viewDidLoad()
+					controller.myTableView.reloadData()
+				})
+			}
+			else{
+				let featuredRef = ref.child("Players")
+				var playersArr = [String]()
+				featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+					for child in snapshot.children{
+						playersArr.append((child as AnyObject).key)
+					}
+					self.playerTeamArr = playersArr
+					let controller = segue.destination as! ListViewController
+					controller.playerTeamList = self.playerTeamArr
+					controller.myTableView.reloadData()
+				})
+			}
 		}
 			
 		else if segue.identifier == "TeamsSegue"{
@@ -249,5 +306,6 @@ class ViewController: UIViewController, UIPageViewControllerDataSource {
         
         return nil
     }
+	
 }
 
