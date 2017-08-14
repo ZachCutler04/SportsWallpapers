@@ -164,7 +164,7 @@
         <!--Page View Controller-->
         <scene sceneID="jy8-V1-aIm">
             <objects>
-                <pageViewController storyboardIdentifier="CellsPageController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="9It-UC-jgX" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="CellsPageController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="9It-UC-jgX" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NbZ-Kr-s7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3164" y="777"/>

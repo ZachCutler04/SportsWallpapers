@@ -100,7 +100,7 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return (featImages.count - 1) / 4
+        return ((featImages.count) / 4) + 1
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
