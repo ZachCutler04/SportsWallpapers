@@ -20,11 +20,13 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
     var pageViewController: UIPageViewController?
     
     var searchFor = ""
-    var featImages = [UIImage]()
+    var featImagesUIPhotos = [UIImage]()
+    var doneImages = [PHLivePhoto]()
+    var featURL = [NSURL]()
+    var featMovURL = [NSURL]()
     
     override func viewDidLoad() {
         ref = Database.database().reference()
-        createPageViewController()
         self.setFeatImages{() -> () in
             self.createPageViewController()
         }
@@ -36,33 +38,68 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
     func setFeatImages(handleComplete: @escaping (()->())){
         
         let featuredRef = ref.child(searchFor)
+        let featuredRef2 = ref.child(searchFor + "mov")
         featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            var counter = 0
             for rest in snapshot.children.allObjects as! [DataSnapshot]{
                 let dbString = (rest.value as! String).description
-                
                 if let url = NSURL(string: dbString) {
                     if let data = NSData(contentsOf: url as URL) {
-                        self.featImages.append(UIImage(data: data as Data)!)
-                        
+                        var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last
+                        docURL = docURL?.appendingPathComponent("sample" + counter.description + ".jpg")
+                        self.featURL.append(docURL! as NSURL)
+                        data.write(to: docURL!, atomically: true)
+                        self.featImagesUIPhotos.append(UIImage(data: data as Data)!)
+                        counter += 1
                     }
                 }
             }
-            handleComplete()
+            featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
+                let maxCounter = snapshot2.childrenCount
+                var counter2 = -1
+                var counter3 = 0
+                for rest in snapshot2.children.allObjects as! [DataSnapshot]{
+                    let dbString = (rest.value as! String).description
+                    if let url = NSURL(string: dbString) {
+                        if let data = NSData(contentsOf: url as URL) {
+                            var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last
+                            docURL = docURL?.appendingPathComponent("sample2" + counter2.description + ".mov")
+                            self.featMovURL.append(docURL! as NSURL)
+                            data.write(to: docURL!, atomically: true)
+                            counter2 += 1
+                            self.makeLivePhotoFromItems(imageURL: self.featURL[counter2], videoURL: docURL! as NSURL, previewImage: self.featImagesUIPhotos[counter2]) { (livePhoto) in
+                                counter3 += 1
+                                if UInt(counter2) < maxCounter {
+                                    self.doneImages.append(livePhoto)
+                                }
+                                if maxCounter == UInt(counter3) {
+                                    handleComplete()
+                                }
+                            }
+                        }
+                    }
+                }
+            })
         })
     }
-//    private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage, completion: @escaping (_ livePhoto: PHLivePhoto) -> Void) {
-//        PHLivePhoto.request(withResourceFileURLs: [imageURL as URL, videoURL as URL], placeholderImage: previewImage, targetSize: CGSize.zero, contentMode: .aspectFit) {
-//            (livePhoto, infoDict) -> Void in
-//            if let lp = livePhoto {
-//                completion(lp)
-//            }
-//        }
-//    }
+    
+    private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage, completion: @escaping (_ livePhoto: PHLivePhoto) -> Void) {
+        PHLivePhoto.request(withResourceFileURLs: [imageURL as URL, videoURL as URL], placeholderImage: previewImage, targetSize: CGSize.zero, contentMode: .aspectFit) {
+            (livePhoto, infoDict) -> Void in
+            print (infoDict)
+            if let canceled = infoDict[PHLivePhotoInfoCancelledKey] as? NSNumber,
+                canceled == 0,
+                let livePhoto = livePhoto
+            {
+                completion(livePhoto)
+            }
+        }
+    }
     
     func createPageViewController(){
         let pageController = self.storyboard?.instantiateViewController(withIdentifier: "CellsPageController") as! UIPageViewController
         pageController.dataSource = self
-        if self.featImages.count > 0{
+        if self.doneImages.count > 0{
             let firstController = getItemController(0)!
             let startingViewControllers = [firstController]
             pageController.setViewControllers(startingViewControllers, direction: UIPageViewControllerNavigationDirection.forward, animated: false, completion: nil)
@@ -87,20 +124,20 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
         if ItemController.itemIndex > 0 {
             return getItemController(ItemController.itemIndex-1)
         }
-        return getItemController((featImages.count-1) / 4)
+        return getItemController(doneImages.count-1)
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let ItemController = viewController as! ImagesViewController
         
-        if ItemController.itemIndex * 4 < featImages.count {
+        if ItemController.itemIndex < doneImages.count {
             return getItemController(ItemController.itemIndex+1)
         }
         return getItemController(0)
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return ((featImages.count) / 4) + 1
+        return doneImages.count
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
@@ -124,20 +161,11 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
     }
     
     func getItemController(_ itemIndex: Int) -> ImagesViewController? {
-        if itemIndex * 4 < featImages.count {
+        if itemIndex < doneImages.count {
             let pageItemController = self.storyboard?.instantiateViewController(withIdentifier: "CellsItemController") as! ImagesViewController
             
             pageItemController.itemIndex = itemIndex
-            pageItemController.image = featImages[itemIndex * 4]
-            if(featImages.count > (itemIndex * 4) + 1){
-                pageItemController.image2 = featImages[(itemIndex * 4) + 1]
-            }
-            if(featImages.count > (itemIndex * 4) + 2){
-                pageItemController.image3 = featImages[(itemIndex * 4) + 2]
-            }
-            if(featImages.count > (itemIndex * 4) + 3){
-                pageItemController.image4 = featImages[(itemIndex * 4) + 3]
-            }
+            pageItemController.image = doneImages[itemIndex]
             return pageItemController
         }
         

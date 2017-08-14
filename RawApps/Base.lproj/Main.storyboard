@@ -193,48 +193,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OBC-Sq-1oF">
-                                <rect key="frame" x="36" y="87" width="155" height="276"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tyg-bb-ouk">
-                                <rect key="frame" x="36" y="371" width="155" height="276"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cql-Z3-Zyn">
-                                <rect key="frame" x="200" y="371" width="155" height="276"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2g6-TN-hFs">
-                                <rect key="frame" x="200" y="87" width="155" height="276"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cql-Z3-Zyn" customClass="PHLivePhotoView">
+                                <rect key="frame" x="18" y="71" width="339" height="564"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="cql-Z3-Zyn" secondAttribute="trailing" constant="20" id="3fL-0G-oqC"/>
-                            <constraint firstItem="2g6-TN-hFs" firstAttribute="leading" secondItem="OBC-Sq-1oF" secondAttribute="trailing" constant="9" id="7XJ-cb-ex7"/>
-                            <constraint firstItem="Tyg-bb-ouk" firstAttribute="height" secondItem="OBC-Sq-1oF" secondAttribute="height" id="8Y9-jc-KPu"/>
-                            <constraint firstItem="OBC-Sq-1oF" firstAttribute="top" secondItem="n3k-1H-1Um" secondAttribute="bottom" constant="67" id="CPs-FO-iq6"/>
-                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="width" secondItem="Tyg-bb-ouk" secondAttribute="width" id="DUg-EE-cvZ"/>
-                            <constraint firstItem="Tyg-bb-ouk" firstAttribute="top" secondItem="OBC-Sq-1oF" secondAttribute="bottom" constant="8" id="Fwo-Vh-gIw"/>
-                            <constraint firstItem="Tyg-bb-ouk" firstAttribute="leading" secondItem="F9P-ep-m5y" secondAttribute="leadingMargin" constant="20" id="Ivh-Yk-m58"/>
-                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="height" secondItem="2g6-TN-hFs" secondAttribute="height" id="Ksi-ad-QJf"/>
-                            <constraint firstItem="2g6-TN-hFs" firstAttribute="width" secondItem="OBC-Sq-1oF" secondAttribute="width" id="LIk-kU-9i4"/>
-                            <constraint firstItem="rCS-wm-8Ys" firstAttribute="top" secondItem="Tyg-bb-ouk" secondAttribute="bottom" constant="20" id="Mtf-Hu-nTz"/>
-                            <constraint firstItem="2g6-TN-hFs" firstAttribute="top" secondItem="n3k-1H-1Um" secondAttribute="bottom" constant="67" id="VfO-cR-bcl"/>
-                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="leading" secondItem="Tyg-bb-ouk" secondAttribute="trailing" constant="9" id="W2S-Hd-90K"/>
-                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="top" secondItem="2g6-TN-hFs" secondAttribute="bottom" constant="8" id="Y3D-0y-dAV"/>
-                            <constraint firstItem="Tyg-bb-ouk" firstAttribute="top" secondItem="OBC-Sq-1oF" secondAttribute="bottom" constant="8" id="arg-2B-DFb"/>
-                            <constraint firstItem="rCS-wm-8Ys" firstAttribute="top" secondItem="cql-Z3-Zyn" secondAttribute="bottom" constant="20" id="fg4-v2-AbJ"/>
-                            <constraint firstItem="2g6-TN-hFs" firstAttribute="leading" secondItem="OBC-Sq-1oF" secondAttribute="trailing" constant="9" id="frP-PF-q9O"/>
-                            <constraint firstItem="OBC-Sq-1oF" firstAttribute="leading" secondItem="F9P-ep-m5y" secondAttribute="leadingMargin" constant="20" id="lne-T5-IKo"/>
-                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="top" secondItem="2g6-TN-hFs" secondAttribute="bottom" constant="8" id="nhV-yA-oeN"/>
-                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="leading" secondItem="Tyg-bb-ouk" secondAttribute="trailing" constant="9" id="swW-Wb-TAA"/>
-                            <constraint firstAttribute="trailing" secondItem="2g6-TN-hFs" secondAttribute="trailing" constant="20" id="wv0-2p-6zY"/>
+                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="centerX" secondItem="F9P-ep-m5y" secondAttribute="centerX" id="94f-Vw-kGa"/>
+                            <constraint firstAttribute="bottom" secondItem="cql-Z3-Zyn" secondAttribute="bottom" constant="32" id="9jS-8J-kTq"/>
+                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="top" secondItem="n3k-1H-1Um" secondAttribute="bottom" constant="51" id="gEc-G1-rDa"/>
+                            <constraint firstItem="cql-Z3-Zyn" firstAttribute="leading" secondItem="F9P-ep-m5y" secondAttribute="leadingMargin" constant="2" id="pzw-N4-XT0"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="firstImage" destination="OBC-Sq-1oF" id="EgR-S4-GyK"/>
-                        <outlet property="fourthImage" destination="cql-Z3-Zyn" id="yis-dj-GTe"/>
-                        <outlet property="secondImage" destination="2g6-TN-hFs" id="7Ds-Lh-1XX"/>
-                        <outlet property="thirdImage" destination="Tyg-bb-ouk" id="FfM-W4-6Ti"/>
+                        <outlet property="imageShowing" destination="cql-Z3-Zyn" id="eYU-Oy-AbI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ZQ-pv-dCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
