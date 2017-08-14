@@ -159,8 +159,8 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 		let featuredRef = ref.child("Featured")
 		let featuredRef2 = ref.child("FeaturedMov")
 		featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
+			var counter = 0
 			for rest in snapshot.children.allObjects as! [DataSnapshot]{
-				var counter = 0
 				let dbString = (rest.value as! String).description
 				if let url = NSURL(string: dbString) {
 					if let data = NSData(contentsOf: url as URL) {
@@ -174,21 +174,23 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 				}
 			}
 			featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
+				let maxCounter = snapshot2.childrenCount
+				var counter2 = -1
+				var counter3 = 0
 				for rest in snapshot2.children.allObjects as! [DataSnapshot]{
-					let maxCounter = snapshot2.childrenCount
-					var counter2 = 0
 					let dbString = (rest.value as! String).description
 					if let url = NSURL(string: dbString) {
 						if let data = NSData(contentsOf: url as URL) {
 							var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last
 							docURL = docURL?.appendingPathComponent("sample2" + counter2.description + ".mov")
 							data.write(to: docURL!, atomically: true)
+							counter2 += 1
 							self.makeLivePhotoFromItems(imageURL: self.featURL[counter2], videoURL: docURL! as NSURL, previewImage: self.featImagesUIPhotos[counter2]) { (livePhoto) in
+								counter3 += 1
 								if UInt(counter2) < maxCounter {
 									self.featImages.append(livePhoto)
 								}
-								counter2 += 1
-								if maxCounter == UInt(counter2) {
+								if maxCounter == UInt(counter3) {
 									handleComplete()
 								}
 							}
