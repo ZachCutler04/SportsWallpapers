@@ -44,7 +44,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 		ref = Database.database().reference()
 		self.setFeatImages{() -> () in
 			self.createPageViewController()
-			}
+		}
         setupPageControl()
     }
 	
@@ -160,27 +160,37 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 		let featuredRef2 = ref.child("FeaturedMov")
 		featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
 			for rest in snapshot.children.allObjects as! [DataSnapshot]{
+				var counter = 0
 				let dbString = (rest.value as! String).description
 				if let url = NSURL(string: dbString) {
-					self.featURL.append(url)
 					if let data = NSData(contentsOf: url as URL) {
+						var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last
+						docURL = docURL?.appendingPathComponent("sample" + counter.description + ".jpg")
+						self.featURL.append(docURL! as NSURL)
+						data.write(to: docURL!, atomically: true)
 						self.featImagesUIPhotos.append(UIImage(data: data as Data)!)
+						counter += 1
 					}
 				}
 			}
 			featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
 				for rest in snapshot2.children.allObjects as! [DataSnapshot]{
 					let maxCounter = snapshot2.childrenCount
-					var counter = 0
+					var counter2 = 0
 					let dbString = (rest.value as! String).description
 					if let url = NSURL(string: dbString) {
-						self.makeLivePhotoFromItems(imageURL: self.featURL[counter], videoURL: url, previewImage: self.featImagesUIPhotos[counter]) { (livePhoto) in
-							if UInt(counter) < maxCounter {
-								self.featImages.append(livePhoto)
-							}
-							counter += 1
-							if maxCounter == UInt(counter) {
-								handleComplete()
+						if let data = NSData(contentsOf: url as URL) {
+							var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last
+							docURL = docURL?.appendingPathComponent("sample2" + counter2.description + ".mov")
+							data.write(to: docURL!, atomically: true)
+							self.makeLivePhotoFromItems(imageURL: self.featURL[counter2], videoURL: docURL! as NSURL, previewImage: self.featImagesUIPhotos[counter2]) { (livePhoto) in
+								if UInt(counter2) < maxCounter {
+									self.featImages.append(livePhoto)
+								}
+								counter2 += 1
+								if maxCounter == UInt(counter2) {
+									handleComplete()
+								}
 							}
 						}
 					}
@@ -192,12 +202,16 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 	private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage, completion: @escaping (_ livePhoto: PHLivePhoto) -> Void) {
 		PHLivePhoto.request(withResourceFileURLs: [imageURL as URL, videoURL as URL], placeholderImage: previewImage, targetSize: CGSize.zero, contentMode: .aspectFit) {
 			(livePhoto, infoDict) -> Void in
-			if let lp = livePhoto {
-				completion(lp)
+			print (infoDict)
+			if let canceled = infoDict[PHLivePhotoInfoCancelledKey] as? NSNumber,
+				canceled == 0,
+				let livePhoto = livePhoto
+			{
+				completion(livePhoto)
 			}
 		}
 	}
-	
+
     @IBAction func openMenu(_ sender: Any ) {
         if(menuOpen){
             leadConstraint.constant = -160

@@ -26,8 +26,10 @@ class FeatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    
+        featImage.isUserInteractionEnabled = true
         featImage.livePhoto = image
-        
+        featImage.startPlayback(with: .full)
     }
 
 }
