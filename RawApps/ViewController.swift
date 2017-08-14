@@ -350,6 +350,5 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
         
         return nil
     }
-	
 }
 
