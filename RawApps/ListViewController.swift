@@ -15,6 +15,7 @@ import FirebaseStorage
 class ListViewController: UITableViewController{
 
     var playerTeamList = [String]()
+    var selectedRow = ""
     
     @IBOutlet weak var myTableView: UITableView!
     
@@ -42,6 +43,14 @@ class ListViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRow = (tableView.cellForRow(at: indexPath)?.textLabel?.text)!
         performSegue(withIdentifier: "Cells", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Cells"{
+            let controller = segue.destination as! CellsController
+            controller.searchFor = self.selectedRow
+        }
     }
 }

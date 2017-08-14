@@ -112,7 +112,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 				})
 				featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
 					for child2 in snapshot2.children{
-						if(((child2 as AnyObject)).key.contains(self.searchInputText)){
+						if(((child2 as AnyObject)).key.lowercased().contains(self.searchInputText.lowercased())){
 							playersTeamsArr.append((child2 as AnyObject).key)
 						}
 					}
