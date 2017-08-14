@@ -20,7 +20,10 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
     @IBOutlet weak var leadConstraint: NSLayoutConstraint!
     @IBOutlet weak var menuSection: UIView!
     @IBOutlet weak var featLabel: UILabel!
-    
+	@IBOutlet weak var button: UIBarButtonItem!
+	
+	
+	
     var menuOpen = false
     var pageViewController: UIPageViewController?
     var ref: DatabaseReference!
@@ -30,6 +33,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 	var featImagesUIPhotos = [UIImage]()
     var featImages = [PHLivePhoto]()
 	var featURL = [NSURL]()
+	var featMovURL = [NSURL]()
 	var searchClicked = false
 	var searchInputText = ""
 	
@@ -47,6 +51,27 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 		}
         setupPageControl()
     }
+	
+	@IBAction func downloadButton(_ sender: Any) {
+		PHPhotoLibrary.shared().performChanges({
+			
+			let request = PHAssetCreationRequest.forAsset()
+			let current = self.currentControllerIndex()
+			
+			request.addResource(with: .photo, fileURL: self.featURL[current] as URL, options: nil)
+			request.addResource(with: .pairedVideo, fileURL: self.featMovURL[current] as URL, options: nil)
+		})
+		{ (success, error) in
+			
+			if success{
+				let alert = UIAlertController(title: "Downloaded!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+				alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+				self.present(alert, animated: true, completion: nil)
+			}
+		}
+
+	}
+	
 	
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		self.searchInputText = searchBar.text!
@@ -98,6 +123,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		self.searchBar.endEditing(true)
 		if segue.identifier == "PlayerSegue"{
 			if(self.searchClicked == true){
 				let featuredRef = ref.child("Players")
@@ -183,6 +209,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 						if let data = NSData(contentsOf: url as URL) {
 							var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last
 							docURL = docURL?.appendingPathComponent("sample2" + counter2.description + ".mov")
+							self.featMovURL.append(docURL! as NSURL)
 							data.write(to: docURL!, atomically: true)
 							counter2 += 1
 							self.makeLivePhotoFromItems(imageURL: self.featURL[counter2], videoURL: docURL! as NSURL, previewImage: self.featImagesUIPhotos[counter2]) { (livePhoto) in
@@ -231,6 +258,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
     }
     
     func tapClose(){
+		self.searchBar.endEditing(true)
         if(menuOpen){
             openMenu(self)
         }

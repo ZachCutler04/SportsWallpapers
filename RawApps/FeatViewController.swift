@@ -29,7 +29,6 @@ class FeatViewController: UIViewController {
     
         featImage.isUserInteractionEnabled = true
         featImage.livePhoto = image
-        featImage.startPlayback(with: .full)
     }
 
 }
