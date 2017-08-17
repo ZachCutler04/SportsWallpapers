@@ -46,7 +46,7 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
                 if let url = NSURL(string: dbString) {
                     if let data = NSData(contentsOf: url as URL) {
                         var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last
-                        docURL = docURL?.appendingPathComponent("sample" + counter.description + ".jpg")
+                        docURL = docURL?.appendingPathComponent("cells" + counter.description + ".jpg")
                         self.featURL.append(docURL! as NSURL)
                         data.write(to: docURL!, atomically: true)
                         self.featImagesUIPhotos.append(UIImage(data: data as Data)!)
@@ -63,7 +63,7 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
                     if let url = NSURL(string: dbString) {
                         if let data = NSData(contentsOf: url as URL) {
                             var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last
-                            docURL = docURL?.appendingPathComponent("sample2" + counter2.description + ".mov")
+                            docURL = docURL?.appendingPathComponent("cells2" + counter2.description + ".mov")
                             self.featMovURL.append(docURL! as NSURL)
                             data.write(to: docURL!, atomically: true)
                             counter2 += 1
