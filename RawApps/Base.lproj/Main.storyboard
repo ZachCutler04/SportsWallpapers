@@ -81,6 +81,10 @@
                                     <constraint firstItem="6qv-Kz-4Dk" firstAttribute="top" secondItem="InA-bB-eRS" secondAttribute="bottom" constant="8" id="sFj-BW-jFP"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="j92-Cq-Fou">
+                                <rect key="frame" x="177" y="355" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -109,6 +113,7 @@
                         <outlet property="button" destination="Hsc-TP-0Qu" id="oKV-ce-fMp"/>
                         <outlet property="featLabel" destination="ud7-La-I8O" id="4UR-PV-pKT"/>
                         <outlet property="leadConstraint" destination="g1Q-sr-g2p" id="OT2-2e-BJ8"/>
+                        <outlet property="loadingView" destination="j92-Cq-Fou" id="qYy-s0-P8v"/>
                         <outlet property="menuSection" destination="f60-Lb-me0" id="CTC-NP-eMJ"/>
                         <outlet property="searchBar" destination="Ui8-e4-e0u" id="DUN-sx-y2W"/>
                     </connections>
@@ -166,8 +171,20 @@
                     <view key="view" contentMode="scaleToFill" id="Jgh-Vy-3cL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Nxp-S5-95y">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Nxp-S5-95y" firstAttribute="centerX" secondItem="Jgh-Vy-3cL" secondAttribute="centerX" id="Kxp-hS-tKm"/>
+                            <constraint firstItem="Nxp-S5-95y" firstAttribute="centerY" secondItem="Jgh-Vy-3cL" secondAttribute="centerY" id="XSf-Bs-Hgy"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="LoadingView" destination="Nxp-S5-95y" id="Ltc-2N-kyW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y4Y-ez-2xi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

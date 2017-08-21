@@ -25,7 +25,12 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
     var featURL = [NSURL]()
     var featMovURL = [NSURL]()
     
+    @IBOutlet weak var LoadingView: UIActivityIndicatorView!
+    
+    
     override func viewDidLoad() {
+        LoadingView.startAnimating()
+        LoadingView.hidesWhenStopped = true
         ref = Database.database().reference()
         self.setFeatImages{() -> () in
             self.createPageViewController()
@@ -108,6 +113,7 @@ class CellsController: UIViewController, UIPageViewControllerDataSource{
         addChildViewController(pageViewController!)
         
         self.view.addSubview(pageViewController!.view)
+        LoadingView.stopAnimating()
         pageViewController!.didMove(toParentViewController: self)
     }
     

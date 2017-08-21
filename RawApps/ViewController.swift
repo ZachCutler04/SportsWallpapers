@@ -24,6 +24,8 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 	
 	
 	
+	@IBOutlet weak var loadingView: UIActivityIndicatorView!
+	
     var menuOpen = false
     var pageViewController: UIPageViewController?
     var ref: DatabaseReference!
@@ -38,6 +40,9 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 	var searchInputText = ""
 	
     override func viewDidLoad() {
+		self.featLabel.isHidden = true
+		self.loadingView.hidesWhenStopped = true
+		self.loadingView.startAnimating()
         super.viewDidLoad()
 		searchBar.delegate = self
         menuSection.tag = 1
@@ -286,6 +291,8 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 		
 		self.view.addSubview(pageViewController!.view)
         pageViewController!.didMove(toParentViewController: self)
+		self.loadingView.stopAnimating()
+		self.featLabel.isHidden = false
 		self.view.bringSubview(toFront: featLabel)
 		self.view.bringSubview(toFront: self.menuSection)
     }
