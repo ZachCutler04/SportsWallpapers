@@ -21,9 +21,6 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
     @IBOutlet weak var menuSection: UIView!
     @IBOutlet weak var featLabel: UILabel!
 	@IBOutlet weak var button: UIBarButtonItem!
-	
-	
-	
 	@IBOutlet weak var loadingView: UIActivityIndicatorView!
 	
     var menuOpen = false
@@ -43,17 +40,23 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 		self.featLabel.isHidden = true
 		self.loadingView.hidesWhenStopped = true
 		self.loadingView.startAnimating()
+		
         super.viewDidLoad()
 		searchBar.delegate = self
         menuSection.tag = 1
         backgroundView.tag = 2
+		
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapGestureAction))
+		
         view.addGestureRecognizer(tap)
+		
         menuSection.layer.shadowOpacity = 1
+		
 		ref = Database.database().reference()
 		self.setFeatImages{() -> () in
 			self.createPageViewController()
 		}
+		
         setupPageControl()
     }
 	
@@ -66,15 +69,14 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 			request.addResource(with: .photo, fileURL: self.featURL[current] as URL, options: nil)
 			request.addResource(with: .pairedVideo, fileURL: self.featMovURL[current] as URL, options: nil)
 		})
-		{ (success, error) in
 			
+		{ (success, error) in
 			if success{
 				let alert = UIAlertController(title: "Downloaded!", message: "", preferredStyle: UIAlertControllerStyle.alert)
 				alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
 				self.present(alert, animated: true, completion: nil)
 			}
 		}
-
 	}
 	
 	
@@ -88,12 +90,15 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 		if(searchClicked == true){
 			let featuredRef = ref.child("Players")
 			let featuredRef2 = ref.child("Teams")
+			
 			var playersTeamsArr = [String]()
+			
 			featuredRef.observeSingleEvent(of: .value, with: { (snapshot) in
 				for child in snapshot.children{
 					playersTeamsArr.append((child as AnyObject).key)
 				}
 			})
+			
 			featuredRef2.observeSingleEvent(of: .value, with: { (snapshot2) in
 				for child2 in snapshot2.children{
 					if(((child2 as AnyObject)).key.contains(self.searchInputText)){
@@ -101,6 +106,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 					}
 				}
 			})
+			
 			self.playerTeamArr = playersTeamsArr
 			self.searchClicked = false
 		}
@@ -234,6 +240,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, UISearch
 	}
 	
 	private func makeLivePhotoFromItems(imageURL: NSURL, videoURL: NSURL, previewImage: UIImage, completion: @escaping (_ livePhoto: PHLivePhoto) -> Void) {
+		
 		PHLivePhoto.request(withResourceFileURLs: [imageURL as URL, videoURL as URL], placeholderImage: previewImage, targetSize: CGSize.zero, contentMode: .aspectFit) {
 			(livePhoto, infoDict) -> Void in
 			print (infoDict)

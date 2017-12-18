@@ -182,6 +182,8 @@
                             <constraint firstItem="Nxp-S5-95y" firstAttribute="centerY" secondItem="Jgh-Vy-3cL" secondAttribute="centerY" id="XSf-Bs-Hgy"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="LoadingView" destination="Nxp-S5-95y" id="Ltc-2N-kyW"/>
                     </connections>
@@ -315,6 +317,6 @@
         <image name="superSmallMenu" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="P58-3o-CBj"/>
+        <segue reference="fcH-48-nt8"/>
     </inferredMetricsTieBreakers>
 </document>
